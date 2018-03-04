@@ -11,7 +11,7 @@ app.use(express.static('./public'));
 
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
-server.listen(80);
+server.listen(port);
 
 io.on("connection", function(socket){
   socket.on("Client-send-data",function(data){
