@@ -48,6 +48,7 @@ var mail_config = [
     {domain:"att.net",host:"imap.mail.yahoo.com",port:993,tls:true},
     {domain:"yahoo.com",host:"imap.mail.yahoo.com",port:993,tls:true},
     {domain:"kc.rr.com",host:"mail.twc.com",port:993,tls:true},
+    {domain:"adelphia.net",host:"mail.twc.com",port:993,tls:true},
     {domain:"wanadoo.fr",host:"imap.orange.fr",port:993,tls:true},
     {domain:"cox.net",host:"imap.cox.net",port:993,tls:true},
     {domain:"charter.net",host:"mobile.charter.net",port:993,tls:true},
