@@ -58,7 +58,7 @@ function checkemail(email,password) {
     return new Promise((resolve, reject) => {
         email = email.trim()
         password = password.trim()
-        let r = mail_config.find(mail => mail.domain === checktype(email));
+        let r = mail_config.find(mail => mail.domain == checktype(email));
         let config = {
             imap: {
                 user: email,
