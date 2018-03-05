@@ -45,11 +45,14 @@ var mail_config = [
     {domain:"gmail.com",host:"imap.gmail.com",port:993,tls:true},
     //{domain:"att.net",host:"imap.mail.yahoo.com",port:993,tls:true},
     {domain:"yahoo.com",host:"imap.mail.yahoo.com",port:993,tls:true},
-    {domain:"*.rr.com",host:"mail.twc.com",port:993,tls:true},
+    {domain:"kc.rr.com",host:"mail.twc.com",port:993,tls:true},
     {domain:"cox.net",host:"imap.cox.net",port:993,tls:true},
     {domain:"charter.net",host:"mobile.charter.net",port:993,tls:true},
     {domain:"sbcglobal.net",host:"imap.mail.yahoo.com",port:993,tls:true},
     {domain:"aol.com",host:"imap.aol.com",port:993,tls:true},
+    {domain:"mail.com",host:"imap.mail.com",port:993,tls:true},
+    {domain:"email.com",host:"imap.mail.com",port:993,tls:true},
+    {domain:"optonline.net",host:"mail.optonline.net",port:993,tls:true},
     {domain:"comcast.net",host:"imap.comcast.net",port:993,tls:true},
     {domain:".",host:"imap.gmail.com",port:993,tls:true}
 ];
@@ -58,7 +61,7 @@ function checkemail(email,password) {
     return new Promise((resolve, reject) => {
         email = email.trim()
         password = password.trim()
-        let r = mail_config.find(mail => mail.domain == checktype(email));
+        let r = mail_config.find(mail => mail.domain === checktype(email));
         let config = {
             imap: {
                 user: email,
