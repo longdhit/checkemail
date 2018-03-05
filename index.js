@@ -60,6 +60,7 @@ var mail_config = [
     {domain:"optonline.net",host:"mail.optonline.net",port:993,tls:true},
     {domain:"bigpond.com",host:"imap.telstra.com",port:993,tls:true},
     {domain:"telstra.com",host:"imap.telstra.com",port:993,tls:true},
+    {domain:"q.com",host:"mail.q.com",port:993,tls:true}
     //{domain:"netscape.com",host:"imap.aol.com",port:993,tls:true}
 ];
 
