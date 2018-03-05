@@ -53,7 +53,9 @@ var mail_config = [
     {domain:"mail.com",host:"imap.mail.com",port:993,tls:true},
     {domain:"email.com",host:"imap.mail.com",port:993,tls:true},
     {domain:"optonline.net",host:"mail.optonline.net",port:993,tls:true},
-    {domain:"comcast.net",host:"imap.comcast.net",port:993,tls:true},
+    {domain:"bigpond.com",host:"imap.telstra.com",port:993,tls:true},
+    {domain:"telstra.com",host:"imap.telstra.com",port:993,tls:true},
+    {domain:"netscape.com",host:"imap.aol.com",port:993,tls:true},
     {domain:".",host:"imap.gmail.com",port:993,tls:true}
 ];
 
