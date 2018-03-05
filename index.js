@@ -43,8 +43,9 @@ app.get('*', function(req, res) {
 var mail_config = [
     {domain:"hotmail.com",host:"imap-mail.outlook.com",port:993,tls:true},
     {domain:"gmail.com",host:"imap.gmail.com",port:993,tls:true},
-    {domain:"att.net",host:"imap.mail.yahoo.com",port:993,tls:true},
+    //{domain:"att.net",host:"imap.mail.yahoo.com",port:993,tls:true},
     {domain:"yahoo.com",host:"imap.mail.yahoo.com",port:993,tls:true},
+    {domain:"kc.rr.com",host:"mail.twc.com",port:993,tls:true},
     {domain:"sbcglobal.net",host:"imap.mail.yahoo.com",port:993,tls:true},
     {domain:"aol.com",host:"imap.aol.com",port:993,tls:true},
     {domain:"comcast.net",host:"imap.comcast.net",port:993,tls:true},
@@ -53,7 +54,8 @@ var mail_config = [
 
 function checkemail(email,password) {
     return new Promise((resolve, reject) => {
-        
+        email = email.trim()
+        password = password.trim()
         let r = mail_config.find(mail => mail.domain === checktype(email));
         let config = {
             imap: {
