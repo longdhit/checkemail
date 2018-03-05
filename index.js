@@ -42,10 +42,12 @@ app.get('*', function(req, res) {
   });
 var mail_config = [
     {domain:"hotmail.com",host:"imap-mail.outlook.com",port:993,tls:true},
+    {domain:"msn.com",host:"imap-mail.outlook.com",port:993,tls:true},
     {domain:"gmail.com",host:"imap.gmail.com",port:993,tls:true},
-    //{domain:"att.net",host:"imap.mail.yahoo.com",port:993,tls:true},
+    {domain:"att.net",host:"imap.mail.yahoo.com",port:993,tls:true},
     {domain:"yahoo.com",host:"imap.mail.yahoo.com",port:993,tls:true},
     {domain:"kc.rr.com",host:"mail.twc.com",port:993,tls:true},
+    {domain:"wanadoo.fr",host:"imap.orange.fr",port:993,tls:true},
     {domain:"cox.net",host:"imap.cox.net",port:993,tls:true},
     {domain:"charter.net",host:"mobile.charter.net",port:993,tls:true},
     {domain:"sbcglobal.net",host:"imap.mail.yahoo.com",port:993,tls:true},
@@ -55,8 +57,7 @@ var mail_config = [
     {domain:"optonline.net",host:"mail.optonline.net",port:993,tls:true},
     {domain:"bigpond.com",host:"imap.telstra.com",port:993,tls:true},
     {domain:"telstra.com",host:"imap.telstra.com",port:993,tls:true},
-    {domain:"netscape.com",host:"imap.aol.com",port:993,tls:true},
-    {domain:".",host:"imap.gmail.com",port:993,tls:true}
+    {domain:"netscape.com",host:"imap.aol.com",port:993,tls:true}
 ];
 
 function checkemail(email,password) {
