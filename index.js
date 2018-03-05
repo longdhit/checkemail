@@ -46,6 +46,7 @@ var mail_config = [
     //{domain:"att.net",host:"imap.mail.yahoo.com",port:993,tls:true},
     {domain:"yahoo.com",host:"imap.mail.yahoo.com",port:993,tls:true},
     {domain:"kc.rr.com",host:"mail.twc.com",port:993,tls:true},
+    {domain:"cox.net",host:"imap.cox.net",port:993,tls:true},
     {domain:"sbcglobal.net",host:"imap.mail.yahoo.com",port:993,tls:true},
     {domain:"aol.com",host:"imap.aol.com",port:993,tls:true},
     {domain:"comcast.net",host:"imap.comcast.net",port:993,tls:true},
