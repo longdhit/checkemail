@@ -21,9 +21,7 @@ app.post("/",function(req,res){
        else check_pop3(email,password,r.host,r.port).then(result => res.send(result)).catch(error => res.send(error))
     }
     else{
-        check_imap(email,password,"imap.gmail.com",993)
-        .then(result => res.send(result))
-        .catch(error => res.send({stt:-1,ret:"Error|"+err+"|"+email+"|"+password}))
+        res.send({stt:0,ret:"Not support|"+email+"|"+password})
     }
 })
 const mail_config = [

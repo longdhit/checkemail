@@ -43,8 +43,13 @@
     <script src="/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function(e) {
+          var thread = 100;
+          var current = 0;
+          if (current < thread) {
+            current ++;
+          }
             var checkEmail = function(mplist, index) {
-                $('.mailchecking').text(mplist[index]);
+                //$('.mailchecking').text(mplist[index]);
                 var sllmailpass = mplist.length;
                 var mail = mplist[index].split('|')[0].trim();
                 var pass = mplist[index].split('|')[1].trim();
