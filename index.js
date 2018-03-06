@@ -80,7 +80,7 @@ function check_pop3(email,password,host,port,tls){
     return new Promise((resolve, reject) => {
         var POP3Client = require("poplib");
         var client = new POP3Client(port, host, {
-                tlserrs: true,
+                tlserrs: false,
                 enabletls: tls,
                 debug: false
         });
