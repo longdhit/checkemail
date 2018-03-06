@@ -32,6 +32,7 @@ const mail_config = [
     {domain:"gmail.com",host:"imap.gmail.com",port:993,method:1},
     {domain:"att.net",host:"imap.mail.yahoo.com",port:993,method:1},
     {domain:"yahoo.com",host:"imap.mail.yahoo.com",port:993,method:1},
+    {domain:"ymail.com",host:"imap.mail.yahoo.com",port:993,method:1},
     {domain:"rr.com",host:"mail.twc.com",port:993,method:1},
     {domain:"adelphia.net",host:"mail.twc.com",port:993,method:1},
     {domain:"wanadoo.fr",host:"imap.orange.fr",port:993,method:1},
@@ -46,6 +47,7 @@ const mail_config = [
     {domain:"telstra.com",host:"imap.telstra.com",port:993,method:1},
     {domain:"q.com",host:"mail.q.com",port:993,method:1},
     {domain:"comcast.net",host:"mail.comcast.net",port:995,method:2},
+    {domain:"wowway.com",host:"pop3.mail.wowway.com",port:995,method:2},
 ];
 function check_imap(email,password,host,port){
     return new Promise((resolve, reject) => {
@@ -79,7 +81,6 @@ function check_pop3(email,password,host,port){
         var POP3Client = require("poplib");
         var client = new POP3Client(port, host, {
                 tlserrs: true,
-                ssl:true,
                 enabletls: true,
                 debug: false
         });
