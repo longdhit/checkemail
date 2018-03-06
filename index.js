@@ -42,6 +42,7 @@ const mail_config = [
     {domain:"aol.com",host:"imap.aol.com",port:993,tls:true,method:1},
     {domain:"mail.com",host:"imap.mail.com",port:993,tls:true,method:1},
     {domain:"email.com",host:"imap.mail.com",port:993,tls:true,method:1},
+    {domain:"techie.com",host:"imap.mail.com",port:993,tls:true,method:1},
     {domain:"optonline.net",host:"mail.optonline.net",port:993,tls:true,method:1},
     {domain:"bigpond.com",host:"imap.telstra.com",port:993,tls:true,method:1},
     {domain:"telstra.com",host:"imap.telstra.com",port:993,tls:true,method:1},
