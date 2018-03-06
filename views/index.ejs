@@ -64,10 +64,10 @@
                     if (status == "success") {
                         console.log(data);
                         if (data.stt == 0) {
-                            $("#die").append(data.ret + "</br>");
+                            //$("#die").append(data.ret + "</br>");
                             index++;
                         } else if (data.stt == 1) {
-                            // $("#live").append(data.ret + "</br>")
+                            $("#live").append(data.ret + "</br>")
                             index++;
                         } else {
                             $("#die").append(data.ret + "</br>");
