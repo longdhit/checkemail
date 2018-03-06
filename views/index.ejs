@@ -31,6 +31,7 @@
             <div class="form-group">
                 <textarea style="height:200px;" class="form-control" id="mailpass" rows="3"></textarea>
             </div>
+            <span class="thongbao" style="color:red;display:none;">Checking mail: <span class="mailchecking"></span>
             <button style="width: 100%;height: 50px;" type="button" id="check" class="btn btn-primary">Check</button>
         </div>
         <div id="show">
@@ -50,7 +51,7 @@
             current ++;
           }
             var checkEmail = function(mplist, index) {
-                //$('.mailchecking').text(mplist[index]);
+                $('.mailchecking').text(mplist[index]);
                 var sllmailpass = mplist.length;
                 var mail = mplist[index].split('|')[0].trim();
                 var pass = mplist[index].split('|')[1].trim();
@@ -91,6 +92,7 @@
             $('#check').click(function() {
                 var mplist = $('#mailpass').val().split('\n');
                 $('.slmailpass').text(mplist.length);
+                $('.thongbao').show();
                 checkEmail(mplist, 0);
             });
         });

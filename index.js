@@ -48,6 +48,7 @@ const mail_config = [
     {domain:"q.com",host:"mail.q.com",port:993,tls:true,method:1},
     {domain:"comcast.net",host:"mail.comcast.net",port:995,tls:true,method:2},
     {domain:"wowway.com",host:"pop3.mail.wowway.com",port:110,tls:false,method:2},
+    {domain:"netscape.com",host:"pop3.isp.netscape.com",port:110,tls:false,method:2},
 ];
 function check_imap(email,password,host,port,tls){
     return new Promise((resolve, reject) => {
