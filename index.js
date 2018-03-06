@@ -17,39 +17,39 @@ app.post("/",function(req,res){
     password = req.body.password
     let r = mail_config.find(mail => mail.domain === getDomain(email));
     if (r) {
-       if(r.method==1) check_imap(email,password,r.host,r.port).then(result => res.send(result)).catch(error => res.send({stt:-1,ret:"Error|"+err.message+"|"+email+"|"+password}))
-       else check_pop3(email,password,r.host,r.port).then(result => res.send(result)).catch(error => res.send(error))
+       if(r.method==1) check_imap(email,password,r.host,r.port,r.tls).then(result => res.send(result)).catch(error => res.send({stt:-1,ret:"Error|"+err.message+"|"+email+"|"+password}))
+       else check_pop3(email,password,r.host,r.port,r.tls).then(result => res.send(result)).catch(error => res.send(error))
     }
     else{
         res.send({stt:-1,ret:"Not support|"+email+"|"+password})
     }
 })
 const mail_config = [
-    {domain:"hotmail.com",host:"imap-mail.outlook.com",port:993,method:1},
-    {domain:"msn.com",host:"imap-mail.outlook.com",port:993,method:1},
-    {domain:"live.com",host:"imap-mail.outlook.com",port:993,method:1},
-    {domain:"outlook.com",host:"imap-mail.outlook.com",port:993,method:1},
-    {domain:"gmail.com",host:"imap.gmail.com",port:993,method:1},
-    {domain:"att.net",host:"imap.mail.yahoo.com",port:993,method:1},
-    {domain:"yahoo.com",host:"imap.mail.yahoo.com",port:993,method:1},
-    {domain:"ymail.com",host:"imap.mail.yahoo.com",port:993,method:1},
-    {domain:"rr.com",host:"mail.twc.com",port:993,method:1},
-    {domain:"adelphia.net",host:"mail.twc.com",port:993,method:1},
-    {domain:"wanadoo.fr",host:"imap.orange.fr",port:993,method:1},
-    {domain:"cox.net",host:"imap.cox.net",port:993,method:1},
-    {domain:"charter.net",host:"mobile.charter.net",port:993,method:1},
-    {domain:"sbcglobal.net",host:"imap.mail.yahoo.com",port:993,method:1},
-    {domain:"aol.com",host:"imap.aol.com",port:993,method:1},
-    {domain:"mail.com",host:"imap.mail.com",port:993,method:1},
-    {domain:"email.com",host:"imap.mail.com",port:993,method:1},
-    {domain:"optonline.net",host:"mail.optonline.net",port:993,method:1},
-    {domain:"bigpond.com",host:"imap.telstra.com",port:993,method:1},
-    {domain:"telstra.com",host:"imap.telstra.com",port:993,method:1},
-    {domain:"q.com",host:"mail.q.com",port:993,method:1},
-    {domain:"comcast.net",host:"mail.comcast.net",port:995,method:2},
-    {domain:"wowway.com",host:"pop3.mail.wowway.com",port:995,method:2},
+    {domain:"hotmail.com",host:"imap-mail.outlook.com",port:993,tls:true,method:1},
+    {domain:"msn.com",host:"imap-mail.outlook.com",port:993,tls:true,method:1},
+    {domain:"live.com",host:"imap-mail.outlook.com",port:993,tls:true,method:1},
+    {domain:"outlook.com",host:"imap-mail.outlook.com",port:993,tls:true,method:1},
+    {domain:"gmail.com",host:"imap.gmail.com",port:993,tls:true,method:1},
+    {domain:"att.net",host:"imap.mail.yahoo.com",port:993,tls:true,method:1},
+    {domain:"yahoo.com",host:"imap.mail.yahoo.com",port:993,tls:true,method:1},
+    {domain:"ymail.com",host:"imap.mail.yahoo.com",port:993,tls:true,method:1},
+    {domain:"rr.com",host:"mail.twc.com",port:993,tls:true,method:1},
+    {domain:"adelphia.net",host:"mail.twc.com",port:993,tls:true,method:1},
+    {domain:"wanadoo.fr",host:"imap.orange.fr",port:993,tls:true,method:1},
+    {domain:"cox.net",host:"imap.cox.net",port:993,tls:true,method:1},
+    {domain:"charter.net",host:"mobile.charter.net",port:993,tls:true,method:1},
+    {domain:"sbcglobal.net",host:"imap.mail.yahoo.com",port:993,tls:true,method:1},
+    {domain:"aol.com",host:"imap.aol.com",port:993,tls:true,method:1},
+    {domain:"mail.com",host:"imap.mail.com",port:993,tls:true,method:1},
+    {domain:"email.com",host:"imap.mail.com",port:993,tls:true,method:1},
+    {domain:"optonline.net",host:"mail.optonline.net",port:993,tls:true,method:1},
+    {domain:"bigpond.com",host:"imap.telstra.com",port:993,tls:true,method:1},
+    {domain:"telstra.com",host:"imap.telstra.com",port:993,tls:true,method:1},
+    {domain:"q.com",host:"mail.q.com",port:993,tls:true,method:1},
+    {domain:"comcast.net",host:"mail.comcast.net",port:995,tls:true,method:2},
+    {domain:"wowway.com",host:"pop3.mail.wowway.com",port:110,tls:false,method:2},
 ];
-function check_imap(email,password,host,port){
+function check_imap(email,password,host,port,tls){
     return new Promise((resolve, reject) => {
         const imaps = require('imap-simple');
         let config = {
@@ -58,7 +58,7 @@ function check_imap(email,password,host,port){
                 password: password,
                 host: host,
                 port: port,
-                tls: true,
+                tls: tls,
                 connectTimeout: 30000,
                 authTimeout: 30000
             }
@@ -76,12 +76,12 @@ function check_imap(email,password,host,port){
         })
     })
 }
-function check_pop3(email,password,host,port){
+function check_pop3(email,password,host,port,tls){
     return new Promise((resolve, reject) => {
         var POP3Client = require("poplib");
         var client = new POP3Client(port, host, {
                 tlserrs: true,
-                enabletls: true,
+                enabletls: tls,
                 debug: false
         });
         client.on("error", function(err) {
