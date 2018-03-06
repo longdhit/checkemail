@@ -7,13 +7,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use(express.static('./public'));
-//server.listen(port);
+server.listen(port);
 app.get("/", function(req, res){
     res.render("index");
 });
 app.post("/",function(req,res){
-    email = req.body.email.trim()
-    password = req.body.password.trim()
+    
+    email = req.body.email
+    password = req.body.password
     let r = mail_config.find(mail => mail.domain === getDomain(email));
     if (r) {
        if(r.method==1) check_imap(email,password,r.host,r.port).then(result => res.send(result)).catch(error => res.send({stt:-1,ret:"Error|"+err.message+"|"+email+"|"+password}))
@@ -67,11 +68,9 @@ function check_imap(email,password,host,port){
             connection.end()
         }).catch(error => {
             if (error.message == "Please log in via your web browser: https://support.google.com/mail/accounts/answer/78754 (Failure)") {
-                connection.end()    
                 resolve({stt:1,ret:"Live|"+email+"|"+password})
             }
             else{
-                connection.end()
                 resolve({stt:0,ret:"Die|"+email+"|"+password})
             }
         })
@@ -116,7 +115,3 @@ function getDomain(email){
     }
     return res
 }
-
-// check_pop3("trench4u@comcast.net","davidson","mail.comcast.net",995).then(result=>{
-//     console.log(result)
-// })

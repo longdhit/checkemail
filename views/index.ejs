@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -8,97 +9,84 @@
     <title>Email Account Checker</title>
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
-    <style>body {
-        padding-top: 5rem;
-      }
-      .starter-template {
-        padding: 3rem 1.5rem;
-        text-align: center;
-      }</style>
-      <script src="jquery.js"></script>
-      <script src="socket.io/socket.io.js"></script>
-      <script>
+    <style>
+        body {
+            padding-top: 2rem;
+        }
 
-            // goi dien len server
-            var socket = io("/");
-            var live = 0;
-            var totals = 0;
-            var checked = 0;
-            socket.on("Serven-send-data",function(data){
-                checked++
-                $("#total").html(checked);
-                if(data.stt == 1){
-                    $("#live").append(data.ret+"</br>") 
-                    live++
-                    $("#totallive").html(checked);
-                } 
-                else $("#die").append(data.ret+"</br>");
-            })
-            $(document).ready(function(){
-                $('#check').click(function() {
-                    let mplist = $("#mailpass").val().split('\n');
-                    if(totals==0) totals = mplist.length
-                    else totals = totals + mplist.length
-                    $("#totals").html(totals);
-                    socket.emit("Client-send-data",$("#mailpass").val())
-                })
-            });
-            </script>
+        .starter-template {
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
 
-  </head>
-
-  <body>
-
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
+<body>
     <main role="main" class="container">
-
-      <div class="starter-template">
-        <h1>Email Account Checker</h1>
-
+        <div class="starter-template">
+            <h1>Email Account Checker</h1>
             <div class="form-group">
-              <textarea class="form-control" id="mailpass" rows="3"></textarea>
+                <textarea style="height:200px;" class="form-control" id="mailpass" rows="3"></textarea>
             </div>
             <button type="button" id="check" class="btn btn-primary">Check</button>
-     
-      </div>
-      
-      <div id="show">
-            <div><b><font color='red'>Status</font> ( Checked : <b id='total'>0</b> | Live : <b id='totallive'>0</b> | Totals : <b id='totals'>0</b></div>
-            <div id="live" style="color:green;" ></div>
-            <div id="die" style="color:red;" ></div>
+        </div>
+        <div id="show">
+            <div><b>Đã check : <b class="checked">0</b> | Còn lại : <b class='conlai'>0</b> | Tổng cộng : <b class="slmailpass">0</b></b>
+            </div>
+            <div id="live" style="color:green;"></div>
+            <div id="die" style="color:red;"></div>
         </div>
     </main>
-      <!-- /.container -->
+    <!-- /.container -->
     <script src="/js/bootstrap.min.js"></script>
-
-  </body>    
+    <script>
+        $(document).ready(function(e) {
+            var checkEmail = function(mplist, index) {
+                $('.mailchecking').text(mplist[index]);
+                var sllmailpass = mplist.length;
+                var mail = mplist[index].split('|')[0].trim();
+                var pass = mplist[index].split('|')[1].trim();
+                var dta = {
+                    "email": mail,
+                    "password": pass
+                };
+                $('#mailpass').val($('#mailpass').val().replace(mplist[index], ""));
+                $('#mailpass').val($('#mailpass').val().substring(1));
+                $.post("?t=" + Math.random(), dta, function(data, status) {
+                    if (status == "success") {
+                        console.log(data);
+                        if (data.stt == 0) {
+                            $("#die").append(data.ret + "</br>");
+                            index++;
+                        } else if (data.stt == 1) {
+                            $("#live").append(data.ret + "</br>")
+                            index++;
+                        } else {
+                            $("#die").append(data.ret + "</br>");
+                            index++;
+                        }
+                        console.log(index);
+                        if (index <= sllmailpass - 1) {
+                            $('.checked').text(index);
+                            $('.conlai').text(parseInt($('.slmailpass').text()) - parseInt($('.checked').text()));
+                            checkEmail(mplist, index)
+                        } else {
+                            $('.checked').text(index);
+                            $('.conlai').text(parseInt($('.slmailpass').text()) - parseInt($('.checked').text()));
+                            alert('Done');
+                        }
+                    } else {
+                        alert('Fail');
+                    };
+                }, 'json');
+            }
+            $('#check').click(function() {
+                var mplist = $('#mailpass').val().split('\n');
+                $('.slmailpass').text(mplist.length);
+                checkEmail(mplist, 0);
+            });
+        });
+    </script>
+</body>
